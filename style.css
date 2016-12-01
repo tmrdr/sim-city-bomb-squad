@@ -1,0 +1,76 @@
+/*.city {
+  background: url(img/simcity.jpg) no-repeat center center fixed;
+  background-size: cover;
+}*/
+h3 {
+  color: white;
+}
+.box {
+  width: 180px;
+  height: 350px;
+  background-color: black;
+}
+
+/* uncut wires*/
+.bw {
+  background: url(img/uncut-blue-wire.png);
+  width: 26px;
+  height: 250px;
+  display: inline-block;
+}
+.gw {
+  background: url(img/uncut-green-wire.png);
+  width: 26px;
+  height: 250px;
+  display: inline-block;
+}
+.rw {
+  background: url(img/uncut-red-wire.png);
+  width: 26px;
+  height: 250px;
+  display: inline-block;
+}
+.ww {
+  background: url(img/uncut-white-wire.png);
+  width: 26px;
+  height: 250px;
+  display: inline-block;
+}
+.yw {
+  background: url(img/uncut-yellow-wire.png);
+  width: 26px;
+  height: 250px;
+  display: inline-block;
+}
+
+/* cut wires*/
+.bc {
+  background: url(img/cut-blue-wire.png);
+  width: 26px;
+  height: 250px;
+  display: inline-block;
+}
+.gc {
+  background: url(img/cut-green-wire.png);
+  width: 26px;
+  height: 250px;
+  display: inline-block;
+}
+.rc {
+  background: url(img/cut-red-wire.png);
+  width: 26px;
+  height: 250px;
+  display: inline-block;
+}
+.wc {
+  background: url(img/cut-white-wire.png);
+  width: 26px;
+  height: 250px;
+  display: inline-block;
+}
+.yc {
+  background: url(img/cut-yellow-wire.png);
+  width: 26px;
+  height: 250px;
+  display: inline-block;
+}
