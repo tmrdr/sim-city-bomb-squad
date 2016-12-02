@@ -1,62 +1,81 @@
-console.log("javascript running");
-
 document.addEventListener("DOMContentLoaded", function() {
-    console.log("DOM loaded");
-});
+  console.log("DOM loaded");
+  var time = 30; //display, in seconds
+  var interval;
+  var colorOrder = ["blue", "green", "red", "white", "yellow"];
+  var wiresToCut = [];
 
-var count = 30;
+  //Generate randomly which wires need cutting
+  for(var i = 0; i < 5; i++){
+    wiresToCut.push({ color: colorOrder[i], cut: Math.random() > .5});
+  }
+  console.log("Wires created:", wiresToCut[0], wiresToCut[1], wiresToCut[2], wiresToCut[3], wiresToCut[4]);
 
-function display() {
-    var clock = document.getElementById("clock");
-    clock.textContent = count;
-};
+  //Start a timer that counts down
+  interval = setInterval(tick, 1000);
 
+  //Add an event listener to each wire
+  var box = document.getElementById("box");
+  console.log(box);
+  for(var i = 0; i < box.children.length; i++){
+    box.children[i].addEventListener("click", clickWire);
+  }
 
-var timeLeft = function() {
-    console.log(count--);
-    display();
-    if (count <= 0) {
-        count = 0
+  //Create a function to check whether the wires still need to be cut
+  function doneCuttingWires(){
+    for(var i = 0; i < wiresToCut.length; i++){
+      if(wiresToCut[i].cut == true){
+        return false;
+      }
     }
-};
 
-setTimeout(function() {
-    console.log("time's up");
-    clearInterval(timer);
-}, 31000);
+    return true;
+  }
 
-var timer = setInterval(timeLeft, 1000);
+  function wireIsGood(color){
+    for(var i = 0; i < wiresToCut.length; i++){
+      if(color == wiresToCut[i].color){
+        if(wiresToCut[i].cut == true){
+          wiresToCut[i].cut = false;
+          return true;
+        }
+        return false;
+      }
+    }
+    return false;
+  }
 
+  function clickWire(){
+      console.log("WIRE CLICKED");
+      console.log(this.id);
+      //Change the src of the img to the cut version of the wire
+      this.src = "img/cut-" + this.id + "-wire.png";
 
-// wire cutting //
+      //If good choice - change the corresponding boolean value to false
+      //else if we screwed up - clear the interval, go boom
+      if(wireIsGood(this.id)){
+        console.log("GOOD!");
+        this.removeEventListener("click", clickWire);
+      }
+      else {
+        console.log("uhoh");
+        clearInterval(interval);
+        document.body.style.background = "url('img/explosion.jpg')";
+      }
 
-var blue = document.getElementById("blue").addEventListener("click", function() {
-    console.log("blue wire cut");
-    var blue = document.getElementById("blue");
-    blue.classList.remove("bw");
-    blue.classList.add("bc");
-});
-var green = document.getElementById("green").addEventListener("click", function() {
-    console.log("green wire cut");
-    var green = document.getElementById("green");
-    green.classList.remove("gw");
-    green.classList.add("gc");
-});
-var red = document.getElementById("red").addEventListener("click", function() {
-    console.log("red wire cut");
-    var red = document.getElementById("red");
-    red.classList.remove("rw");
-    red.classList.add("rc");
-});
-var white = document.getElementById("white").addEventListener("click", function() {
-  console.log("blue wire cut");
-  var white = document.getElementById("white");
-  white.classList.remove("ww");
-  white.classList.add("wc");
-});
-var yellow = document.getElementById("yellow").addEventListener("click", function() {
-  console.log("yellow wire cut");
-  var yellow = document.getElementById("yellow");
-  yellow.classList.remove("yw");
-  yellow.classList.add("yc");
+  }
+  function tick(){
+    console.log("tick")
+    time -= 1;
+    document.getElementById("timer").textContent = time; //display
+
+    if(doneCuttingWires()){
+      clearInterval(interval);
+      document.getElementById("timer").textContent = "Thanks."
+    }
+  }
+  if(time <= 0){
+  clearInterval(interval);
+  document.body.style.background = "url('img/explosion.jpg')";
+}
 });
